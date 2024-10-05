@@ -77,4 +77,3 @@ DELETE FROM article
 WHERE title = '제목1';
 # 조회
 SELECT * FROM article;
-
