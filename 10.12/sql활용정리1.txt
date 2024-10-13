@@ -1,0 +1,82 @@
+정렬
+특정 컬럼을 지정해 그 컬럼의 값으로 행을 정렬.
+order by 컬럼 asc/desc
+asc : 오름차순
+
+desc : 내림차순
+
+Products 테이블에서 가격(Price)으로 오름차순, 제품번호(ProductId)로 내림차순 정렬하기
+
+select *
+from Products
+order by Price ASC, ProductID DESC;
+별명
+특정 컬럼을 새로운 별명을 붙여 사용. 주로 연산이나 함수를 통해 새로 나온 컬럼에 붙인다.
+컬럼 as 별명
+
+Products 테이블에서 ProductId, SupplierId, CategoryId를 더한 값으로 새로운 컬럼을 만들고 컬럼 이름을 NewId로 정하기
+
+SELECT ProductId, SupplierId, CategoryId, ProductId + SupplierId + CategoryId as NewId FROM Products;
+사칙연산
++, *, /, -
+숫자 + 숫자 == 산술 연산
+
+문자 + 숫자 == 문자는 0 취급
+
+컬럼1 + 컬럼2 == 컬럼의 모든 행이 연산.
+
+사칙 연산 예제
+
+SELECT 10 + 20;
+SELECT 10 * 20;
+SELECT 10 / 20;
+SELECT 10 - 20;
+비교연산
+, <, =, !=
+
+결과는 1(참, TRUE), 0(거짓, FALSE)
+비교 연산 예제
+SELECT 10 = 20;
+SELECT 10 != 20;
+SELECT 10 > 20;
+SELECT 10 < 20;
+SELECT 10 >= 20;
+SELECT 10 <= 20;
+논리연산
+and, or
+
+and : 조건이 여러개 일 때 모두 만족해야 맞다고 보는 연산
+
+or : 조건이 여러개일 때 하나라도 만족하면 맞다고 보는 연산
+
+Customers 테이블에서 CustomerId값이 10 이상이고 CustomerId값이 20 이하인 행만 조회
+
+SELECT * 
+FROM Customers
+where CustomerID >= 10 
+and CustomerId <= 20;
+Customers 테이블에서 CustomerId값이 20 이하인것 + CustomerId값이 80이상인 행을 모두 조회
+SELECT * 
+FROM Customers
+where CustomerID <= 20 
+or CustomerId >= 80;
+Customers 테이블에서 CustomerId갑이 20 이하인 것 + CustomerId값이 80이상인 모든 컬럼 중에서 city가 'London'인 행을 조회
+SELECT * 
+FROM Customers
+where (CustomerID <= 20 
+or CustomerId >= 80)
+and city = 'London';
+사잇값
+컬럼 between A and B
+컬럼값이 A와 B 사이인 것만 조회
+Customers 테이블에서 CustomerId값이 10과 20 사이인 행을 조회
+SELECT * 
+FROM Customers
+where CustomerID BETWEEN 10 AND 20;
+포함
+컬럼 in (A, B, C ...)
+컬럼값이 A,B,C 인것을 모두 조회
+Customers 테이블에서 city 값에 'London', 'Berlin', 'Madrid' 중 하나라도 포함하는 행을 모두 조회
+SELECT * 
+FROM Customers
+WHERE City in ('London', 'Berlin', 'Madrid');

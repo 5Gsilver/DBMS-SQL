@@ -1,0 +1,101 @@
+## LIKE, NOT LIKE
+  - 특정 문자로 시작여부, 끝나는지 여부, 포함하는지 여부
+  - 찾고자하는 문자열을 %기호와 조합해서 사용. 여기서 %는 나머지 문자를 의미
+    - 'A%' : A로 시작하는 문자열
+    - '%A' : A로 끝나는 문자열
+    - '%A%' : A를 포함하는 문자열
+    
+    - Employees 테이블에서 LastName이 D로 시작하는 행만 조회
+    ```
+    SELECT * FROM Employees
+    where LastName like 'D%';
+    ```
+    
+    - Employees 테이블에서 LastName이 D로 시작하지 않는 행만 조회
+    ```
+    SELECT * FROM Employees
+    where LastName not like 'D%';
+    ```
+    
+## CEIL, ROUND, FLOOR
+  - 소수점을 올림, 반올림, 버림
+    - CEIL() : 올림
+    - ROUND() : 반올림
+    - FLOOR() : 버림
+    
+  - 1.2를 반올림
+  ```
+  SELECT ROUND(1.2); 
+  ```
+  - Products 테이블의 Price 컬럼값들을 반올림한다.
+  ```
+  SELECT ROUND(Price) FROM Products;
+  ```
+  
+## AVG, MAX, MIN, SUM, COUNT
+  - AVG(컬럼) : 컬럼의 모든 행의 평균값 구하기
+  - MAX(컬럼) : 컬럼의 모든 행중 최대값 구하기
+  - MIN(컬럼) : 컬럼의 모든 행중 최소값 구하기
+  - SUM(컬럼) : 컬럼의 모든 행의 합 구하기
+  - COUNT(컬럼) : 컬럼의 모든 행의 개수를 구하기 (NULL값은 카운팅에서 제외됨)
+  
+    - Categories 테이블에서 CategoryName 컬럼의 모든 행의 개수를 구하기.
+    ```
+    SELECT count(CategoryName) FROM Categories;
+    ```
+## CONCAT(문자1, 문자2, 문자3 ...)
+  - 문자들을 이어 붙여줌.
+  
+  - 문자열 'taejin'과 'cha'를 이어 붙이기
+  ```
+   select concat('taejin', ' ','cha') as name;
+   
+  ```
+  
+  - Employees 테이블의 LastName과 FirstName을 이어 붙여 FullName이라는 새로운 컬럼으로 만들기
+  ```
+  SELECT EmployeeId, BirthDate, Photo, Notes, concat(LastName, ' ', FirstName) as FullName FROM Employees;
+  ```
+  
+## SUBSTR(대상문자, 시작위치, 자르는길이)
+  - 문자열을 잘라줌
+  
+  - 문자열 'taejincha'를 1번째 문자부터 6개 짜르기
+  ```
+  select substr('taejincha', 1, 6) as fisrtName;
+  ```
+  
+  - Employees 테이블에서 BirthDate 컬럼의 모든 값을 1번째 문자부터 4개 짜르기(년도만 나오게 하기)
+  ```
+  SELECT substr(BirthDate, 1, 4) as `year` FROM Employees
+  ```
+
+## REPLACE(대상문자(컬럼), 문자열1, 문자열2)
+  - 대상 문자(컬럼)에 문자열1인 부분을 찾아 문자열2로 치환해주기.
+  
+    - Customers 테이블의 city 컬럼의 값에서 B문자를 찾아 b로 바꾸기
+    ```
+    SELECT replace(city, 'B', 'b') FROM Customers;
+    ```
+    
+## CURDATE(), NOW()
+  - 오늘날짜 구하기
+    - CURDATE : 연월일
+    - NOW : 연월일 시분초
+    
+## ADDDATE(기준날짜, interval n day), SUBDATE()
+  - 기준날짜로 부터 n만큼의 거리(간격)
+## DATE_DIFF(날짜1, 날짜2)
+  - 날짜1과 날짜2의 차이를 구함
+  ```
+  select datediff('2022-03-21', '2021-03-21');
+  ```
+
+## DISTINCT
+  - 조회 결과에서 중복되는 행을 제거한다.
+  
+  - Suppliers에서 Country를 중복제거해서 조회하기
+  ```
+    SELECT DISTINCT Country 
+    FROM Suppliers
+  ```

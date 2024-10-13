@@ -1,0 +1,69 @@
+<join>
+[select 칼럼
+from 테이블A
+join 테이블B
+on 테이블A.기준 = 테이블B.기준]
+
+[select 칼럼
+from 테이블A
+join 테이블B
+on 테이블A.기준 = 테이블B.기준
+join 테이블C
+on 테이블A.기준 = 테이블C.기준]
+
+order : userId, productId
+user : userId
+product : id
+
+---
+* 제약조건은 한 쿼리로 주도록 합니다. 그래야 조건이 빠지지 않습니다.
+예) ALTER TABLE `test` MODIFY COLUMN `id` INT UNSIGNED PRIMARY KEY;
+
+
+--
+
+# a6 DB 삭제/생성/선택
+DROP DATABASE IF EXISTS `a6`;
+CREATE DATABASE `a6`;
+USE `a6`;
+
+# 부서(홍보, 기획)
+CREATE TABLE dept(
+    `id` INT UNSIGNED PRIMARY KEY AUTO_INCREMENT
+    , `regDate` DATETIME NOT NULL
+    , `name` CHAR(100) NOT NULL UNIQUE
+);
+INSERT INTO `dept`
+SET `regDate` = NOW()
+    , `name` = '홍보';
+INSERT INTO `dept`
+SET `regDate` = NOW()
+    , `name` = '기획';
+SELECT * FROM `dept`;
+# 사원(홍길동/홍보/5000만원, 홍길순/홍보/6000만원, 임꺽정/기획/4000만원)
+CREATE TABLE emp(
+    `id` INT
+    , `regDate`DATETIME NOT NULL
+    , `name` CHAR(100) NOT NULL
+    , `deptId` INT UNSIGNED NOT NULL
+    , `salary` INT UNSIGNED NOT NULL
+);
+ALTER TABLE `emp` MODIFY COLUMN `id` INT UNSIGNED PRIMARY KEY AUTO_INCREMENT;
+
+INSERT INTO `emp`
+SET `regDate` = NOW()
+    , `name` = '홍길동'
+    , `deptId` = 1
+    , `salary` = 5000;
+INSERT INTO `emp`
+SET `regDate` = NOW()
+    , `name` = '홍길순'
+    , `deptId` = 1
+    , `salary` = 6000;
+INSERT INTO `emp`
+SET `regDate` = NOW()
+    , `name` = '임꺽정'
+    , `deptId` = 2
+    , `salary` = 4000;
+
+SELECT * FROM `emp`;
